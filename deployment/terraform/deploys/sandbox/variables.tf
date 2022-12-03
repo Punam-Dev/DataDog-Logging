@@ -1,4 +1,4 @@
-variable "region" {}
+variable "region" { default = "ap-south-1"}
 variable "account" {}
 variable "environment" { default = "sandbox"}
 variable "vpc_id" { default = "vpc-14925a7f" }

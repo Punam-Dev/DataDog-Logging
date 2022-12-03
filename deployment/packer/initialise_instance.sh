@@ -54,7 +54,7 @@ sudo systemctl stop datadog-agent
 # sudo mv /home/ec2-user/datadog.yaml /etc/datadog-agent/datadog.yaml
 # echo "output new config file"
 # sudo cat /etc/datadog-agent/datadog.yaml
-"--------------------------------"
+#"--------------------------------"
 
 #Installation of Tracer Agent
 echo "Install Tracer agent and configure"

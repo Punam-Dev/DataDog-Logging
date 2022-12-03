@@ -84,8 +84,8 @@ pipeline {
                     script {
                         if(params.tfapply) {
                             bat("terraform init")
-                            bat("terraform plan")
-                            bat("terraform apply -auto-approve")
+                            bat("terraform plan -var \"account=${account}\" -var \"session_name=${sessionName}\"")
+                            bat("terraform apply -auto-approve -var \"account=${account}\" -var \"session_name=${sessionName}\"")
                         } else {
                             print("Skipping Deploying infrastructure with terraform")
                         }
