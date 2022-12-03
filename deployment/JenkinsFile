@@ -1,0 +1,112 @@
+region = "ap-south-1"
+
+pipeline {
+    agent any
+    parameters {
+        choice(name: 'environment', choices: ['sandbox'], description: "Environment to deploy")
+        booleanParam(name: 'publishProject', defaultValue: false, description: "Want to publish project?")
+        booleanParam(name: 'createS3Bucket', defaultValue: false, description: "Create S3 bucket?")
+        booleanParam(name: 'tfapply', defaultValue: true, description: "Create infrastructure?")
+        booleanParam(name: 'tfdestroy', defaultValue: false, description: "Destroy whole infrastructure?")
+    }
+    environment {
+        TF_VERSION = '1.1.6'
+    }
+    stages{
+        stage('Setting up, Assuming Roles, Preparing Credentials') {
+            steps {
+                script {
+                    print("Creating Folder Structure")
+                    bat 'mkdir tmp log'
+                    print("Declaring dynamic variables")
+                    switch(environment) {
+                        case "sandbox" : 
+                            account = "579253604158"
+                            break
+                    }
+                    sessionName = "datadog-logging-${environment}-deployment"
+                    role = "arn:aws:iam::${account}:role/terraform-user-deployment-role"
+
+                    Now assume role is not required as we are assuming role by arn. 
+                    In future if access key and secretid is req we can do like this and get access key from credJson
+
+                    print("Assuming Role")      
+                    bat("aws sts assume-role \
+                        --role-arn ${role} \
+                        --role-session-name ${sessionName} \
+                        --region ${region} \
+                        > tmp/assume-role-output.json \
+                    ")
+                    credJson = readFile("${WORKSPACE}/tmp/assume-role-output.json")
+                    print(credJson)
+                }
+            }
+        }
+        stage("Create s3 bucket") {
+            steps {
+                script {
+                    if(params.createS3Bucket) {
+                        bat("aws s3 mb s3://datadog-logging-${environment} --region ${region}")
+                    } else {
+                        print("Skipping Create s3 bucket")
+                    }
+                }
+            }
+        }
+        stage("Publish Project and create new ami") {
+            steps {
+                dir("${WORKSPACE}/src") {
+                    script {
+                        if(params.publishProject) {
+                            bat("dotnet publish -c Release -o datadogapp")
+
+                            bat("packer build -var-file='${WORKSPACE}/deployment/packer/variables.json' -var 'aws_access_key=${}' -var 'aws_secret_key=${}' '${WORKSPACE}/deployment/packer/ami.json'")
+
+                        } else {
+                            print("Skipping Publish Project and create new ami")
+                        }
+                    }
+                }
+            }
+        }
+        stage("Deploying infrastructure with terraform") {
+            steps {
+                dir("${WORKSPACE}/deployment/terraform/deploys/${environment}") {
+                    script {
+                        if(params.tfapply) {
+                            bat("terraform init")
+                            bat("terraform plan")
+                            bat("terraform apply -auto-approve")
+                        } else {
+                            print("Skipping Deploying infrastructure with terraform")
+                        }
+                    }
+                }
+            }
+        }
+        stage("Destroy infrastructure") {
+            steps {
+                dir("${WORKSPACE}/deployment/terraform/deploys/${environment}") {
+                    script {
+                        if(params.tfdestroy) {
+                            bat("terraform init")
+                            bat("terraform apply -destroy -auto-approve")
+                        } else {
+                            print("Skipping Destroy infrastructure")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    post {
+        cleanup {
+            script {
+                print("End of JenkinsFile")
+                bat 'del /S /Q tmp'
+                bat 'del  /S /Q log'
+                cleanWs()
+            }
+        }
+    }
+}

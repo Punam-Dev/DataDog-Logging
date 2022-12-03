@@ -1,0 +1,53 @@
+{
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "access_key": "{{user `aws_access_key`}}",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "region": "ap-south-1",
+            "instance_type": "t2.micro",
+            "vpc_id": "vpc-14925a7f",
+            "subnet_id": "subnet-c2cbec8e",
+            "ssh_username": "{{user `instance_username`}}",
+            "ami_name": "datadog-ami",
+            "source_ami_filter": {
+                "filters": {
+                    "name": "amzn2-ami-kernel-5.10-*",
+                    "root-device-type": "ebs",
+                    "virtualization-type": "hvm"
+                },
+                "most_recent": true
+            },
+            "run_tags": {
+                "Name": "Packer builder for datadog logging",
+                "AssetID": "1",
+                "AssetName": "Datadog Logging"
+            },
+            "tags": {
+                "Name": "Packer builder for datadog logging",
+                "AssetID": "1",
+                "AssetName": "Datadog Logging"
+            }
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "{{user `path`}}/src/datadogapp",
+            "destination": "/home/{{user `instance_username`}}/app"
+        },
+        {
+            "type": "file",
+            "source": "{{user `path`}}/deployment/packer/app_init",
+            "destination": "/home/{{user `instance_username`}}/app_init"
+        },
+        {
+            "type": "shell",
+            "environment_vars": [
+                "app_cmd={{user `app_cmd`}}",
+                "datadog_api_key={{user `datadog_api_key`}}"
+            ],
+            "script": "{{user `initialise_instance`}}"
+        }
+    ]
+}

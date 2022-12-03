@@ -1,0 +1,6 @@
+{
+    "path": "{{env `WORKSPACE`}}",
+    "instance_username": "ec2-user",
+    "datadog_api_key":"62b5b12e17cb73801cb1d36dfeac0ea6",
+    "app_cmd":"dotnet DataDogLogging.dll --urls=\"http://*80\""
+}
