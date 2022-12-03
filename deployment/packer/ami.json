@@ -48,7 +48,7 @@
                 "app_cmd={{user `app_cmd`}}",
                 "datadog_api_key={{user `datadog_api_key`}}"
             ],
-            "script": "{{user `initialise_instance`}}"
+            "script": "{{user `path`}}/deployment/packer/initialise_instance.sh"
         }
     ]
 }
