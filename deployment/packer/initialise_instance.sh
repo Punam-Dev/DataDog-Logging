@@ -18,6 +18,16 @@ sudo yum -y update
 sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
 sudo yum install dotnet-sdk-3.1 -y
 
+sudo yum -y install ufw
+sudo ufw -f enable
+sudo ufw allow 80/tcp
+
+sudo ufw status
+
+
+
+sudo chkconfig ufw on
+
 sudo echo "before moving app_init"
 sudo cat /home/$instance_username/app_init
 #cd
