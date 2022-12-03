@@ -41,10 +41,12 @@ pipeline {
                         --region ${region} \
                         > tmp/assume-role-output.json \
                     ")
-                    credJson = new groovy.json.JsonSlurperClassic().parseText(readFile("${WORKSPACE}/tmp/assume-role-output.json"))
+                    credJson = readFile("${WORKSPACE}/tmp/assume-role-output.json")
                     print(credJson)
-                    access_key = credJson.Credentials.AccessKeyId
-                    secret_key = credJson.Credentials.SecretAccessKey
+                    credObj = new groovy.json.JsonSlurperClassic().parseText(credJson)
+                    print(credObj)
+                    access_key = credObj.Credentials.AccessKeyId
+                    secret_key = credObj.Credentials.SecretAccessKey
                     print(access_key)
                     print(secret_key)
                 }
