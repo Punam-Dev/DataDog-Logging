@@ -30,7 +30,7 @@ pipeline {
                     // Now assume role is not required as we are assuming role by arn. 
                     // In future if access key and secretid is req we can do like this and get access key from credJson
                     // have to import JsonSlurperClassic
-                    
+
                     // print("Assuming Role")      
                     // bat("aws sts assume-role \
                     //     --role-arn ${role} \
@@ -69,7 +69,7 @@ pipeline {
                         if(params.publishProject) {
                             bat("dotnet publish -c Release -o datadogapp")
 
-                            bat("packer build -var-file=\"${WORKSPACE}/deployment/packer/variables.json\" -var \"aws_access_key=${access_key}\" -var \"aws_secret_key=${secret_key}\" -var \"token=${session_token}\" \"${WORKSPACE}/deployment/packer/ami.json\"")
+                            bat("packer build -var-file=\"${WORKSPACE}/deployment/packer/variables.json\" \"${WORKSPACE}/deployment/packer/ami.json\"")
 
                         } else {
                             print("Skipping Publish Project and create new ami")
