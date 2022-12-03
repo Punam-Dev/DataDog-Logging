@@ -16,7 +16,8 @@
                     "root-device-type": "ebs",
                     "virtualization-type": "hvm"
                 },
-                "most_recent": true
+                "most_recent": true,
+                "owners": ["579253604158"]
             },
             "run_tags": {
                 "Name": "Packer builder for datadog logging",
