@@ -99,7 +99,7 @@ pipeline {
                     script {
                         if(params.tfdestroy) {
                             bat("terraform init")
-                            bat("terraform apply -destroy -auto-approve")
+                            bat("terraform apply -destroy -auto-approve -var \"account=${account}\" -var \"session_name=${sessionName}\"")
                         } else {
                             print("Skipping Destroy infrastructure")
                         }
