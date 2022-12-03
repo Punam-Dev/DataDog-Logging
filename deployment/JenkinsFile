@@ -27,8 +27,8 @@ pipeline {
                     sessionName = "datadog-logging-${environment}-deployment"
                     role = "arn:aws:iam::${account}:role/terraform-user-deployment-role"
 
-                    Now assume role is not required as we are assuming role by arn. 
-                    In future if access key and secretid is req we can do like this and get access key from credJson
+                    // Now assume role is not required as we are assuming role by arn. 
+                    // In future if access key and secretid is req we can do like this and get access key from credJson
 
                     print("Assuming Role")      
                     bat("aws sts assume-role \
