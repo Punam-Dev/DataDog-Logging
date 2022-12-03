@@ -60,9 +60,9 @@ sudo systemctl stop datadog-agent
 echo "Install Tracer agent and configure"
 
 
-sudo curl -LO https://github.com/DataDog/dd-trace-dotnet/releases/download/v2.20.0/datadog-dotnet-apm_2.20.0_amd64.deb
+sudo curl -LO https://github.com/DataDog/dd-trace-dotnet/releases/download/v2.20.0/datadog-dotnet-apm-2.20.0-1.x86_64.rpm
 
-sudo rpm -Uvh datadog-dotnet-apm<TRACER_VERSION>-1.x86_64.rpm && /opt/datadog/createLogPath.sh
+sudo rpm -Uvh datadog-dotnet-apm-2.20.0-1.x86_64.rpm && /opt/datadog/createLogPath.sh
 
 sudo systemctl start datadog-agent
 
