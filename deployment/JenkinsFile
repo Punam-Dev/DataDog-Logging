@@ -1,9 +1,4 @@
-import groovy.json.JsonSlurperClassic
-
 region = "ap-south-1"
-access_key = ""
-secret_key = ""
-session_token = ""
 
 pipeline {
     agent any
@@ -34,24 +29,25 @@ pipeline {
 
                     // Now assume role is not required as we are assuming role by arn. 
                     // In future if access key and secretid is req we can do like this and get access key from credJson
-
-                    print("Assuming Role")      
-                    bat("aws sts assume-role \
-                        --role-arn ${role} \
-                        --role-session-name ${sessionName} \
-                        --region ${region} \
-                        --duration-seconds 900 \
-                        > tmp/assume-role-output.json \
-                    ")
-                    credJson = readFile("${WORKSPACE}/tmp/assume-role-output.json")
-                    print(credJson)
-                    credObj = new groovy.json.JsonSlurperClassic().parseText(credJson)
-                    print(credObj)
-                    access_key = credObj.Credentials.AccessKeyId
-                    secret_key = credObj.Credentials.SecretAccessKey
-                    session_token = credObj.Credentials.SessionToken
-                    print(access_key)
-                    print(secret_key)
+                    // have to import JsonSlurperClassic
+                    
+                    // print("Assuming Role")      
+                    // bat("aws sts assume-role \
+                    //     --role-arn ${role} \
+                    //     --role-session-name ${sessionName} \
+                    //     --region ${region} \
+                    //     --duration-seconds 900 \
+                    //     > tmp/assume-role-output.json \
+                    // ")
+                    // credJson = readFile("${WORKSPACE}/tmp/assume-role-output.json")
+                    // print(credJson)
+                    // credObj = new groovy.json.JsonSlurperClassic().parseText(credJson)
+                    // print(credObj)
+                    // access_key = credObj.Credentials.AccessKeyId
+                    // secret_key = credObj.Credentials.SecretAccessKey
+                    // session_token = credObj.Credentials.SessionToken
+                    // print(access_key)
+                    // print(secret_key)
                 }
             }
         }
