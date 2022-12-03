@@ -11,7 +11,7 @@
             "vpc_id": "vpc-14925a7f",
             "subnet_id": "subnet-c2cbec8e",
             "ssh_username": "{{user `instance_username`}}",
-            "ami_name": "datadog-ami",
+            "ami_name": "datadog-ami-{{timestamp}}",
             "source_ami_filter": {
                 "filters": {
                     "name": "amzn2-ami-kernel-5.10-*",
@@ -27,7 +27,7 @@
                 "AssetName": "Datadog Logging"
             },
             "tags": {
-                "Name": "Packer builder for datadog logging",
+                "Name": "datadog-ami-{{timestamp}}",
                 "AssetID": "1",
                 "AssetName": "Datadog Logging"
             }

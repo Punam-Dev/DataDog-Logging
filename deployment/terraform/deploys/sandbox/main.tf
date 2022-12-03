@@ -8,6 +8,7 @@ data "aws_ami" "image" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+  owners = ["579253604158"]
 }
 
 module "sg" {
