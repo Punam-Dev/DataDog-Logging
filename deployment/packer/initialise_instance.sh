@@ -67,7 +67,7 @@ sudo rpm -Uvh datadog-dotnet-apm<TRACER_VERSION>-1.x86_64.rpm && /opt/datadog/cr
 sudo systemctl start datadog-agent
 
 # removing the file as we are not adding datadog enable tag on the instance and will stop datadog agent running if left 
-sudo rm /root/check_for_datadog_tag.sh
+# sudo rm /root/check_for_datadog_tag.sh
 
 # The required environment variables for Datadog are set in the proxy deployment app:
 # ci-cd/deployment-app/src/LexisNexis.Rosetta.Proxy.Aws.Deploy/Apps/Deployment/ProxyDeploymentApp.cs
