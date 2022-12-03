@@ -5,31 +5,31 @@ app_name="app"
 instance_username="ec2-user"
 
 # Extract the application we want to host
-sudo su
-mkdir /var/$app_name
-cp -r /home/$instance_username/$app_name /var
+# sudo su
+sudo mkdir /var/$app_name
+sudo cp -r /home/$instance_username/$app_name /var
 
 # Ensure instance is up to date
-echo "Updating and installing yum dependencies"
-yum -y update
+sudo echo "Updating and installing yum dependencies"
+sudo yum -y update
 
 #dotnet install
 
-rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
-yum install dotnet-sdk-3.1 -y
+sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
+sudo yum install dotnet-sdk-3.1 -y
 
-echo "before moving app_init"
-cat /home/$instance_username/app_init
+sudo echo "before moving app_init"
+sudo cat /home/$instance_username/app_init
 #cd
 #sed -i "s#{App.CMD}#$app_cmd#g" /home/$instance_username/app_init
-mv /home/$instance_username/app_init /etc/init.d/app_init
-echo "after moving app_init"
-cat /etc/init.d/app_init
-chmod 755 /etc/init.d/app_init
+sudo mv /home/$instance_username/app_init /etc/init.d/app_init
+sudo echo "after moving app_init"
+sudo cat /etc/init.d/app_init
+sudo chmod 755 /etc/init.d/app_init
 
-sed -i -e 's/\r//g' /etc/init.d/app_init
+sudo sed -i -e 's/\r//g' /etc/init.d/app_init
 
-chkconfig app_init on
+sudo chkconfig app_init on
 
 
 #----------------------------------------------------------------------------------------------------------------------------------------------#
@@ -60,14 +60,14 @@ sudo systemctl stop datadog-agent
 echo "Install Tracer agent and configure"
 
 
-curl -LO https://github.com/DataDog/dd-trace-dotnet/releases/download/v2.20.0/datadog-dotnet-apm_2.20.0_amd64.deb
+sudo curl -LO https://github.com/DataDog/dd-trace-dotnet/releases/download/v2.20.0/datadog-dotnet-apm_2.20.0_amd64.deb
 
-rpm -Uvh datadog-dotnet-apm<TRACER_VERSION>-1.x86_64.rpm && /opt/datadog/createLogPath.sh
+sudo rpm -Uvh datadog-dotnet-apm<TRACER_VERSION>-1.x86_64.rpm && /opt/datadog/createLogPath.sh
 
-systemctl start datadog-agent
+sudo systemctl start datadog-agent
 
 # removing the file as we are not adding datadog enable tag on the instance and will stop datadog agent running if left 
-rm /root/check_for_datadog_tag.sh
+sudo rm /root/check_for_datadog_tag.sh
 
 # The required environment variables for Datadog are set in the proxy deployment app:
 # ci-cd/deployment-app/src/LexisNexis.Rosetta.Proxy.Aws.Deploy/Apps/Deployment/ProxyDeploymentApp.cs
