@@ -3,6 +3,7 @@ import groovy.json.JsonSlurperClassic
 region = "ap-south-1"
 access_key = ""
 secret_key = ""
+session_token = ""
 
 pipeline {
     agent any
@@ -39,6 +40,7 @@ pipeline {
                         --role-arn ${role} \
                         --role-session-name ${sessionName} \
                         --region ${region} \
+                        --duration-seconds 900 \
                         > tmp/assume-role-output.json \
                     ")
                     credJson = readFile("${WORKSPACE}/tmp/assume-role-output.json")
@@ -47,6 +49,7 @@ pipeline {
                     print(credObj)
                     access_key = credObj.Credentials.AccessKeyId
                     secret_key = credObj.Credentials.SecretAccessKey
+                    session_token = credObj.Credentials.SessionToken
                     print(access_key)
                     print(secret_key)
                 }
@@ -70,7 +73,7 @@ pipeline {
                         if(params.publishProject) {
                             bat("dotnet publish -c Release -o datadogapp")
 
-                            bat("packer build -var-file=\"${WORKSPACE}/deployment/packer/variables.json\" -var \"aws_access_key=${access_key}\" -var \"aws_secret_key=${secret_key}\" \"${WORKSPACE}/deployment/packer/ami.json\"")
+                            bat("packer build -var-file=\"${WORKSPACE}/deployment/packer/variables.json\" -var \"aws_access_key=${access_key}\" -var \"aws_secret_key=${secret_key}\" -var \"token=${session_token}\" \"${WORKSPACE}/deployment/packer/ami.json\"")
 
                         } else {
                             print("Skipping Publish Project and create new ami")
