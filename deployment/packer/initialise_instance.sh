@@ -65,8 +65,8 @@ sudo mv /home/ec2-user/datadog.yaml /etc/datadog-agent/datadog.yaml
 echo "output new config file"
 sudo cat /etc/datadog-agent/datadog.yaml
 
-sudo mkdir /etc/datadog-agent/conf.d/DatadogLoggingPOC.d
-sudo mv /home/ec2-user/conf.yaml /etc/datadog-agent/conf.d/DatadogLoggingPOC.d/conf.yaml
+# sudo mkdir /etc/datadog-agent/conf.d/DatadogLoggingPOC.d
+# sudo mv /home/ec2-user/conf.yaml /etc/datadog-agent/conf.d/DatadogLoggingPOC.d/conf.yaml
 #"--------------------------------"
 
 #Installation of Tracer Agent
@@ -76,9 +76,9 @@ echo "Install Tracer agent and configure"
 # sudo rpm -Uvh libxcrypt-4.4.18-3.el9.x86_64.rpm
 
 
-# sudo curl -LO https://github.com/DataDog/dd-trace-dotnet/releases/download/v2.20.0/datadog-dotnet-apm-2.20.0-1.x86_64.rpm
+sudo curl -LO https://github.com/DataDog/dd-trace-dotnet/releases/download/v2.20.0/datadog-dotnet-apm-2.20.0-1.x86_64.rpm
 
-# sudo rpm -Uvh datadog-dotnet-apm-2.20.0-1.x86_64.rpm && sudo /opt/datadog/createLogPath.sh
+sudo rpm -Uvh datadog-dotnet-apm-2.20.0-1.x86_64.rpm && sudo /opt/datadog/createLogPath.sh
 
 sudo systemctl start datadog-agent
 
