@@ -28,18 +28,18 @@ sudo ufw status
 
 sudo chkconfig ufw on
 
-# sudo echo "before moving app_init"
-# sudo cat /home/$instance_username/app_init
-# #cd
-# #sed -i "s#{App.CMD}#$app_cmd#g" /home/$instance_username/app_init
-# sudo mv /home/$instance_username/app_init /etc/init.d/app_init
-# sudo echo "after moving app_init"
-# sudo cat /etc/init.d/app_init
-# sudo chmod 755 /etc/init.d/app_init
+sudo echo "before moving app_init"
+sudo cat /home/$instance_username/app_init
+#cd
+#sed -i "s#{App.CMD}#$app_cmd#g" /home/$instance_username/app_init
+sudo mv /home/$instance_username/app_init /etc/init.d/app_init
+sudo echo "after moving app_init"
+sudo cat /etc/init.d/app_init
+sudo chmod 755 /etc/init.d/app_init
 
-# sudo sed -i -e 's/\r//g' /etc/init.d/app_init
+sudo sed -i -e 's/\r//g' /etc/init.d/app_init
 
-# sudo chkconfig app_init on
+sudo chkconfig app_init on
 
 
 #----------------------------------------------------------------------------------------------------------------------------------------------#
