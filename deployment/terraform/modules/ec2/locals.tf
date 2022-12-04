@@ -17,6 +17,6 @@ locals {
        echo "DD_LOGS_INJECTION=true" >> /etc/environment
        echo "DD_LOGS_DIRECT_SUBMISSION_INTEGRATIONS=Serilog,ILogger" >> /etc/environment
 
-       sudo systemctl start datadog-agent
+       
     EOF
 }
