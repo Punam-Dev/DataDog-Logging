@@ -9,8 +9,8 @@ locals {
        echo "CORECLR_PROFILER_PATH=/opt/datadog/Datadog.Trace.ClrProfiler.Native.so" >> /etc/environment
        echo "DD_INTEGRATIONS=/opt/datadog/integrations.json" >> /etc/environment
        echo "DD_DOTNET_TRACER_HOME=/opt/datadog" >> /etc/environment
-       echo "DD_ENV=${var.aspnetcore_environment}" >> /etc/environment
-       echo "DD_VERSION=1.1" >> /etc/environment
+       echo "DD_ENV="${var.aspnetcore_environment}"" >> /etc/environment
+       echo "DD_VERSION="1.1"" >> /etc/environment
        echo "DD_SERVICE=DDLOGGING" >> /etc/environment
        echo "DD_API_KEY=62b5b12e17cb73801cb1d36dfeac0ea6" >> /etc/environment
        echo "DD_SITE=datadoghq.com" >> /etc/environment

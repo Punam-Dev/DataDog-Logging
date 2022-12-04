@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace DataDogLogging.Controllers
         public IEnumerable<WeatherForecast> Get()
         {
             _logger.LogInformation("Datadog logging working fine");
+            Log.Information("Datadog logging working fine");
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
