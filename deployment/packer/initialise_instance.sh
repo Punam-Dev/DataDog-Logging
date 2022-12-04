@@ -28,18 +28,18 @@ sudo ufw status
 
 sudo chkconfig ufw on
 
-sudo echo "before moving app_init"
-sudo cat /home/$instance_username/app_init
-#cd
-#sed -i "s#{App.CMD}#$app_cmd#g" /home/$instance_username/app_init
-sudo mv /home/$instance_username/app_init /etc/init.d/app_init
-sudo echo "after moving app_init"
-sudo cat /etc/init.d/app_init
-sudo chmod 755 /etc/init.d/app_init
+# sudo echo "before moving app_init"
+# sudo cat /home/$instance_username/app_init
+# #cd
+# #sed -i "s#{App.CMD}#$app_cmd#g" /home/$instance_username/app_init
+# sudo mv /home/$instance_username/app_init /etc/init.d/app_init
+# sudo echo "after moving app_init"
+# sudo cat /etc/init.d/app_init
+# sudo chmod 755 /etc/init.d/app_init
 
-sudo sed -i -e 's/\r//g' /etc/init.d/app_init
+# sudo sed -i -e 's/\r//g' /etc/init.d/app_init
 
-sudo chkconfig app_init on
+# sudo chkconfig app_init on
 
 
 #----------------------------------------------------------------------------------------------------------------------------------------------#
@@ -68,6 +68,9 @@ sudo systemctl stop datadog-agent
 
 #Installation of Tracer Agent
 echo "Install Tracer agent and configure"
+
+# sudo curl -LO http://mirror.stream.centos.org/9-stream/BaseOS/x86_64/os/Packages/libxcrypt-4.4.18-3.el9.x86_64.rpm
+# sudo rpm -Uvh libxcrypt-4.4.18-3.el9.x86_64.rpm
 
 
 sudo curl -LO https://github.com/DataDog/dd-trace-dotnet/releases/download/v2.20.0/datadog-dotnet-apm-2.20.0-1.x86_64.rpm
