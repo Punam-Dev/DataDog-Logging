@@ -8,7 +8,7 @@ resource "aws_instance" "ec2a" {
   #root_block_device {
   #  volume_size = var.ebs_root_volume_size
   #}
-  user_data_base64 = "${base64encode(local.instance-userdata)}"
+  # user_data_base64 = "${base64encode(local.instance-userdata)}"
 }
 
 
