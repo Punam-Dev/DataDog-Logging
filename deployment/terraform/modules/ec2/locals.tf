@@ -18,6 +18,5 @@ locals {
        echo "DD_LOGS_DIRECT_SUBMISSION_INTEGRATIONS=Serilog" >> /etc/environment
 
        sudo systemctl start datadog-agent
-       dotnet /var/app/DataDogLogging.dll --urls=http://*:80
     EOF
 }

@@ -45,6 +45,16 @@
             "destination": "/home/{{user `instance_username`}}/app_init"
         },
         {
+            "type": "file",
+            "source": "{{user `path`}}/deployment/packer/datadog.yaml",
+            "destination": "/home/{{user `instance_username`}}/datadog.yaml"
+        },
+        {
+            "type": "file",
+            "source": "{{user `path`}}/deployment/packer/conf.yaml",
+            "destination": "/home/{{user `instance_username`}}/conf.yaml"
+        },
+        {
             "type": "shell",
             "environment_vars": [
                 "app_cmd={{user `app_cmd`}}",

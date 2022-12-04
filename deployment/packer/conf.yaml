@@ -1,0 +1,8 @@
+init_config:
+
+instances:
+logs:
+  - type: file
+    path: "/var/app/app.log"
+    service: "DatadogLoggingPOC"
+    source: "DatadogLoggingPOC"

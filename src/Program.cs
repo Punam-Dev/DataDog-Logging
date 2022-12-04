@@ -17,7 +17,7 @@ namespace DataDogLogging
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.File(new RenderedCompactJsonFormatter(), "log.json")
+                .WriteTo.File(new RenderedCompactJsonFormatter(), "app.log")
                 .WriteTo.Console()
                 .CreateLogger();
             // using Serilog.Formatting.Compact;
