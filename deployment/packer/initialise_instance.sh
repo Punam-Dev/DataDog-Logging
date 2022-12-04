@@ -65,8 +65,8 @@ sudo mv /home/ec2-user/datadog.yaml /etc/datadog-agent/datadog.yaml
 echo "output new config file"
 sudo cat /etc/datadog-agent/datadog.yaml
 
-# sudo mkdir /etc/datadog-agent/conf.d/DatadogLoggingPOC.d
-# sudo mv /home/ec2-user/conf.yaml /etc/datadog-agent/conf.d/DatadogLoggingPOC.d/conf.yaml
+sudo mkdir /etc/datadog-agent/conf.d/DatadogLoggingPOC.d
+sudo mv /home/ec2-user/conf.yaml /etc/datadog-agent/conf.d/DatadogLoggingPOC.d/conf.yaml
 #"--------------------------------"
 
 #Installation of Tracer Agent

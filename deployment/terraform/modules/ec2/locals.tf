@@ -15,7 +15,7 @@ locals {
        echo "DD_API_KEY=62b5b12e17cb73801cb1d36dfeac0ea6" >> /etc/environment
        echo "DD_SITE=datadoghq.com" >> /etc/environment
        echo "DD_LOGS_INJECTION=true" >> /etc/environment
-       echo "DD_LOGS_DIRECT_SUBMISSION_INTEGRATIONS=Serilog" >> /etc/environment
+       echo "DD_LOGS_DIRECT_SUBMISSION_INTEGRATIONS=Serilog,ILogger" >> /etc/environment
 
        sudo systemctl start datadog-agent
     EOF
